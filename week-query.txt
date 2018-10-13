@@ -1,0 +1,89 @@
+SQL QYERY RELATED TO DATE,YEAR,MONTH,DAY
+1)
+SELECT DISTINCT
+    
+    (SELECT count(*) FROM `tblFax` WHERE  txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-6) as 'week7',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-5) as 'week6',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-4) as 'week5',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-3) as 'week4',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-2) as 'week3',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-1) as 'week2',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='failure' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())) as 'week1'
+    FROM `tblFax`
+
+
+MONTHOFYEAR
+DAYOFYEAR
+
+
+2)
+
+ $this->db->select('Count(*) AS total,txtCompletedAt,WEEK(txtCompletedAt) as week');
+
+means txtCompletedAt colum ma je dae hoty  teno week ape
+
+aavij rite 
+   MONTH(txtCompletedAt) as month
+   DAY(txtCompletedAt) as day
+   
+
+IN CI
+
+
+   public function get_fax_by_week($shorting,$by){
+
+        $query = $this->db->query("SELECT DISTINCT
+    (SELECT count(*) FROM `tblFax` WHERE  txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-6) as 'week7',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-5) as 'week6',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-4) as 'week5',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-3) as 'week4',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-2) as 'week3',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())-1) as 'week2',
+    (SELECT count(*) FROM `tblFax` WHERE txtStatus='$shorting' and WEEKOFYEAR(`txtCompletedAt`)=WEEKOFYEAR(NOW())) as 'week1'
+    FROM `tblFax`");
+      $results = $query->row_array();
+      //echo $this->db->last_query(); 
+        // exit();
+     return $results;
+    }
+
+
+    public function get_fax_by_day($shorting,$by){
+
+        $query = $this->db->query("SELECT DISTINCT
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())-6) as 'day6',
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())-5) as 'day5',
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())-4) as 'day4',
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())-3) as 'day3',
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())-2) as 'day2',
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())-1) as 'day1',
+    (SELECT count(*) FROM `tblFax` WHERE   txtStatus='$shorting' and DAYOFYEAR(`txtCompletedAt`)=DAYOFYEAR(NOW())) as 'day'
+ 
+    FROM `tblFax`");
+      $results = $query->row_array();
+      //echo $this->db->last_query(); 
+       //  exit();
+     return $results;
+    }
+
+Commma seperated query 
+1)
+find_in_set(join)
+
+SELECT a.id,a.county_name,a.county_code,a.flage_image,(b.credits) credits FROM tblCountry a LEFT JOIN tblcredits b ON FIND_IN_SET(a.id, b.county_id) > 0 GROUP BY a.id
+
+2)seach
+public function getCredits($id)
+      {
+
+          $this->db->select('*');
+          $this->db->from('tblcredits'); 
+          $this->db->where('status',1);
+          $this->db->where("county_id LIKE '$id'");
+          $this->db->or_where("county_id LIKE '%,$id'");
+          $this->db->or_where("county_id LIKE '%,$id,%'");
+          $this->db->or_where("county_id LIKE '$id,%'");
+          $query= $this->db->get()->result();
+          //echo $this->db->last_query(); exit();
+          return $query;
+      }
