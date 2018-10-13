@@ -1,0 +1,12 @@
+get cookies.js from  http://www.technofundo.com/tech/js/jscookies.html
+
+cookies.js
+set in script tag
+& use that function by passing argument like deleteCookie('token');
+
+BY javascript
+https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
+
+
+
+Note: cooki set by javascript,jquery,php use in any 
