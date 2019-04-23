@@ -1,17 +1,12 @@
-<?php 
-if(isset($_POST) && !empty($_POST)){
-
-  // echo "<pre>"; print_r($_POST); exit();
-
-  $name=$_POST['name'];
-
-  for ($i=0; $i <count($name); $i++) { 
-     echo $name[$i];
-     echo "<br>";
-
-     //write here insert query
-  }
-  
+<?php
+if (isset($_POST) && !empty($_POST)) {
+    // echo "<pre>"; print_r($_POST); exit();
+    $name=array_values($_POST['name']);
+    for ($i=0; $i <count($name); $i++) {
+        echo $name[$i];
+        echo "<br>";
+        //write here insert query
+    }
 }
 ?>
 
@@ -25,6 +20,7 @@ if(isset($_POST) && !empty($_POST)){
   <body>
 
     <form class="commentForm" method="post" action="dynamic_field_validation.php">
+         
 	    <div>
 
 	        <p id="inputs">    
@@ -32,29 +28,38 @@ if(isset($_POST) && !empty($_POST)){
 	        </p>
 
 	    <input class="submit" type="submit" value="Submit" />
-	    <input type="button" value="add" id="addInput" />
 
 	    </div>
    </form>
+      <input type="button" value="add" id="addInput" />
 
-   <script type="text/javascript">
-   $(document).ready(function() {
-        var numberIncr = 1; // used to increment the name for the inputs
+  <script type="text/javascript">
 
-        function addInput() {
-            $('#inputs').append($('<input class="comment required" name="name['+numberIncr+']" />'));
-            numberIncr++;
-        }
+     $(document).ready(function() {
 
+          var numberIncr = 1; // used to increment the name for the inputs
 
-        //append functin
-        $("#addInput").on('click', addInput);
+          function addInput() {
+              $('#inputs').append($('</br><input class="comment required  del_'+numberIncr+'" name="name['+numberIncr+']" />&nbsp;<span class="delete_btn" del_attribute="'+numberIncr+'">delete</span>'));
+              numberIncr++;
+          }
+          //append functin
+          $("#addInput").on('click', addInput);
+         
+          
+     });
 
-        // validation the form
-        $('form.commentForm').validate();
-
-   });
-
+     /*validation the form*/
+     $(".submit").click(function(){
+       $('form.commentForm').validate();
+     });
+     /* Delete */
+     $(document).on('click', '.delete_btn', function(){
+      
+        $(this).remove();
+        var classname=$(this).attr("del_attribute");
+        $(".del_"+classname).remove();
+     });
 
 </script>
 
