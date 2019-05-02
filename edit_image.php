@@ -29,6 +29,7 @@ if (isset($_POST) && !empty($_POST)) {
            ?>
             <img src="{{asset('public/user/profile/'.$imageFromDb)}}"  class="displayImage" alt="" width="50px" height="50px"> 
             <input type="file" name="filename" style="display:none; " class="uploadImage">
+            <input type="hidden" name="previous_file_name" value="{{$advertisement->media}}">
             <button type="button" class="onChangeImage">change</button>   
           <?php
              } else {
