@@ -7,6 +7,44 @@ if (isset($_POST) && !empty($_POST)) {
 
 
     exit;
+    
+    
+           if ($request->file('media')) {
+            if (substr($requestData['media']->getMimeType(), 0, 5) == 'image') {
+                $requestData ['media_type']=1;
+            }
+            if (substr($requestData['media']->getMimeType(), 0, 5) == 'video') {
+                $requestData ['media_type']=2;
+            }
+
+            $destinationPath = public_path() . '/advertisements/';
+            $file = $request->file('media');
+            $extension = $request->file('media')->getClientOriginalExtension();
+            $fileName = 'start_'.rand(11111, 99999) . strtotime(date('Y-m-d H:i:s')) .'.'. $extension;
+            $request->file('media')->move($destinationPath, $fileName);
+            $requestData['media'] = $fileName;
+
+            /* Generate Thumb */
+            $thumbPath=public_path() . '/advertisements/thumbnail/';
+            if ($requestData ['media_type']==1) {
+                $img = Image::make($destinationPath.$fileName);
+                $img->resize(300, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($thumbPath.'/'.$fileName);
+            }
+
+            if (isset($requestData ['previous_file_name']) && !empty($requestData ['previous_file_name'])) {
+
+                /* delete previous thumb */
+                if (file_exists($thumbPath.$requestData ['previous_file_name'])) {
+                    $unlink_url=$thumbPath.$requestData ['previous_file_name'];
+                    unlink($unlink_url);
+                }
+                /* delete previous image or video */
+                $unlink_url=$destinationPath.$requestData ['previous_file_name'];
+                unlink($unlink_url);
+            }
+        }
 }
 ?>
 <html lang="en">
