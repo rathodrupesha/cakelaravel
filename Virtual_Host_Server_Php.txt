@@ -1,0 +1,124 @@
+Virtual Host Configure
+
+1. Install lamp stack 
+sudo apt-get update && sudo apt-get -y install tasksel
+sudo tasksel
+
+Select (*)Lamp stack
+OK
+
+2. Configuring Mysql Authentication Plugin:
+sudo mysql
+mysql> SELECT user,authentication_string,plugin,host FROM mysql.user;
+
++------------------+-------------------------------------------+-----------------------+-----------+
+| user             | authentication_string                     | plugin                | host      |
++------------------+-------------------------------------------+-----------------------+-----------+
+| root             |                                           | auth_socket           | localhost |
+| mysql.session    | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
+| mysql.sys        | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
+| debian-sys-maint | *CC744277A401A7D25BE1CA89AFF17BF607F876FF | mysql_native_password | localhost |
++------------------+-------------------------------------------+-----------------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+SET root user pwd 
+
+mysql> FLUSH PRIVILEGES;
+
+mysql> SELECT user,authentication_string,plugin,host FROM mysql.user;
+
++------------------+-------------------------------------------+-----------------------+-----------+
+| user             | authentication_string                     | plugin                | host      |
++------------------+-------------------------------------------+-----------------------+-----------+
+| root             | *3636DACC8616D997782ADD0839F92C1571D6D78F | mysql_native_password | localhost |
+| mysql.session    | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
+| mysql.sys        | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE | mysql_native_password | localhost |
+| debian-sys-maint | *CC744277A401A7D25BE1CA89AFF17BF607F876FF | mysql_native_password | localhost |
++------------------+-------------------------------------------+-----------------------+-----------+
+4 rows in set (0.00 sec)
+
+
+mysql> exit;
+
+3.Installing PHPMyAdmin
+
+sudo apt-get update && sudo apt-get install phpmyadmin php-mbstring php-gettext
+sudo phpenmod mbstring
+sudo systemctl restart apache2
+=========================================================
+
+
+4. Login localhost/phpmyadmin
+
+root
+tops?123
+
+Create mysql User :- tops
+How to Create a New User
+
+sudo mysql
+mysql>CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+mysql>GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+mysql>FLUSH PRIVILEGES;
+
+sudo chmod -R 777 /var/www/html/
+5. Upload Database (/var/www/html)
+
+-> Create info.php file /var/www/html  
+<?php
+
+// Show all information, defaults to INFO_ALL
+phpinfo();
+
+?>
+
+sudo systemctl restart apache2
+
+6. -> Enable rewrite mode
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+
+7. sudo cd /etc/apache2/site-availabe/
+8. sudo cp 000-default-conf odesma.ldt.conf
+
+9. Edit :- sudo nano odesma.ldt.conf
+
+Add Line :
+
+	ServerAdmin webmaster@localhost
+	ServerName m4.odesma.com
+	ServerAlias www.m4.odesma.com
+	DocumentRoot /var/www/html/odesma_v3/public
+
+sudo a2ensite odesma.ldt.conf
+sudo systemctl reload apache2
+
+sudo a2dissite 000-default.conf
+sudo systemctl reload apache2
+
+
+-> sudo nano /etc/apache2/apache2.conf
+change Line :- 
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+
+
+sudo chmod -R 0777 storage
+
+===========================================================================================
+
+
+
+
+
+
+
+
+
+
+
