@@ -1,0 +1,140 @@
+
+when use data table at frontend side & manage backend by yajara then send this json in req so yajara manage sort,serch,length,draw by it self
+
+ 
+in postman json as req params
+
+
+
+{
+  "draw": 2,
+  "columns": [
+    {
+      "data": "srNum",
+      "name": "",
+      "searchable": true,
+      "orderable": false,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "fullname",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "username",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "email",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "gender",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "date_of_birth",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "phone_number",
+      "name": "",
+      "searchable": true,
+      "orderable": false,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "created_at",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "updated_at",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "status",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    },
+    {
+      "data": "",
+      "name": "",
+      "searchable": true,
+      "orderable": false,
+      "search": {
+        "value": "",
+        "regex": false
+      }
+    }
+  ],
+  "order": [
+    {
+      "column": 7,
+      "dir": "desc"
+    }
+  ],
+  "start": 0,
+  "length": 10,
+  "search": {
+    "value": "",
+    "regex": false
+  },
+  "name": "",
+  "email": "",
+  "status": "",
+  "gender": "",
+  "phone_number": ""
+}
