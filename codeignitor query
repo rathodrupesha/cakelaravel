@@ -1,0 +1,15 @@
+SQL guidelibne
+==========
+
+$query = $this->db->get();
+
+$rows = $query->result(); //array of objects
+$rows_array = $query->result_array(); //array of arrays
+$row = $query->row(); //single object
+$row_array = $query->row_array();
+
+https://codeigniter.com/userguide2/database/active_record.html
+
+print_r($this->db->last_query()); 
+
+
