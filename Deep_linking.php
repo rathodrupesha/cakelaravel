@@ -16,7 +16,7 @@
  * ********/
 function shorten_URL($longUrl)
 {
-    $key = 'AIzaSyAo69PCFCX0rOcqUdEMZmBDRNACPLOV7OI';
+    $key = 'XXXXXXXXXXX';
     // $url = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=&#8217;'.$key;
     $url = 'https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key='.$key;
 
