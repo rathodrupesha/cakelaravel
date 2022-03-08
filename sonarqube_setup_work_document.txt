@@ -1,0 +1,41 @@
+1) Download the SonarQube Community Edition zip file.
+    https://www.sonarqube.org/downloads/
+ 2) Unzip the folder & goes upto sonar.sh file
+ 3) open terminal & run the command
+
+ ./sonar.sh console
+
+ now your sonar qube is up & open the http://localhost:9000/
+ default username/password is : admin/admin
+
+ & then change the password.
+
+
+ 5)download the sonar scanner: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/ 
+ 2) Unzip the folder & goes upto sonar-scanner file
+ get the path of that particualr file for run the scanner
+
+ like : /home/rupesh/Rupesh_cred/sonar-scanner-cli-4.6.2.2472-linux/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner
+
+In localhost:9000  
+
+Click the Create new project button.
+Give your project a Project key and a Display name and click the Set Up button.
+Under Provide a token, select Generate a token. Give your token a name, click the Generate button, and click Continue.
+Select your project's main language under Run analysis on your project, and follow the instructions to analyze your project. Here you'll download and execute a Scanner on your code (if you're using Maven or Gradle, the Scanner is automatically downloaded).
+
+
+
+now open your project root directory :
+
+open terminal & type
+
+/home/rupesh/Rupesh_cred/sonar-scanner-cli-4.6.2.2472-linux/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner -Dsonar.projectKey=talentappbackend \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=82a2347f97a06184652c935106406717e30cbefd
+
+
+  Here path of sonar-scanner must be
+  url is your local or live url where you have setup & run sonar qube
+  login is the token same as generated from UI (localhost:9000)
