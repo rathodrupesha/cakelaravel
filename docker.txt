@@ -1,0 +1,120 @@
+Ref: https://www.youtube.com/watch?v=PsWeSg38XFY
+
+https://www.youtube.com/watch?v=gAkwW2tuIqE
+
+
+Best URL : https://geshan.com.np/blog/2020/11/nodejs-with-docker/
+with express & mongo : https://medium.com/zenofai/how-to-build-a-node-js-and-mongodb-application-with-docker-containers-15e535baabf5
+
+
+install docekr on ubantu
+=======================
+
+https://nixcp.com/docker-command-not-found/
+
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) \
+stable"
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+
+
+docker version
+docker info
+
+
+
+
+
+
+
+
+
+make Dockerfile for image 
+make .dockerignore file for the file or folder you don't want to do up
+
+make the docker build the image on base of image that you have make in Dockerfile
+
+sudo docker build -t node_test:1.0.0 .  (same command use for rebuild image)
+
+
+list down of all the docker images:  sudo docker images
+list down of all the docker container : sudo docker ps
+
+Run the container by command with mapping of port : sudo docker run -p 3000:8080 node_test:1.0.0   (-p for publish &  localport:containerport   where container port defined in Dockerfile)
+
+
+sudo docker run -p 8080:3000 node_test:1.0.0
+
+rebuid the image & run container
+
+
+
+
+Kill the container : docker stop <container_id>
+
+show the logs of the container : docker logs -f node_test
+
+
+
+
+
+How the docker works
+=======================
+
+In order to understand what a Docker volume is, we first need to be clear about how the filesystem normally works in Docker. Docker images are stored as series of read-only layers. When we start a container, Docker takes the read-only image and adds a read-write layer on top. If the running container modifies an existing file, the file is copied out of the underlying read-only layer and into the top-most read-write layer where the changes are applied. The version in the read-write layer hides the underlying file, but does not destroy it -- it still exists in the underlying layer. When a Docker container is deleted, relaunching the image will start a fresh container without any of the changes made in the previously running container -- those changes are lost. Docker calls this combination of read-only layers with a read-write layer on top a Union File System.
+
+
+
+Need to teach
+=================
+
+-auto reflect the code when change on local then must be reflact on container
+-docker composer 
+-code deployment
+
+
+
+
+
+
+Install docker compose:
+
+why : tool for defining & runnig multi container docker application
+
+if it install then no need to make build of image & run the container manually
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose
+sudo mv /usr/local/bin/docker-compose /usr/bin/docker-compose
+sudo chmod +x /usr/bin/docker-compose
+
+docker-compose --version
+
+create docker-compose.yml file for that  REf: https://training.play-with-docker.com/nodejs-live-debugging/
+
+docker-compose up -d    to up the service  in detached mode
+docker-compose down    to down the service
+
+
+Container inside
+================
+docker exec -it {container_id} bash
+exit
+
+Run the sh file in command line
+========================
+.sh file run in command line by ./makelive.sh 
+
+
+
+docker exec -it 8969a81bf473 bash
+
+env
+
