@@ -1,4 +1,6 @@
 
+
+POPULATE in modal for get join data of two table
 //--------------------------------------------------------------------------------------//
 
 const { userInfo } = require("os")
@@ -9,64 +11,64 @@ const { userInfo } = require("os")
 
 //REF: https://stackoverflow.com/questions/35813854/how-to-join-multiple-collections-with-lookup-in-mongodb
 
-user  |  userrole | userInfo    |  useradd
+user | userrole | userInfo | useradd
 ------------------------------------------
-      |    userId |  userId     |   _id 
-      |           | useradd_id  |
+      | userId | userId | _id
+  |           | useradd_id |
 
-          then lookup ma from ma useradd & localfieldma userInfo.useradd_id.
+  then lookup ma from ma useradd & localfieldma userInfo.useradd_id.
 
-db.users.aggregate([
+    db.users.aggregate([
 
-    // Join with user_info tables
-    {
-        $lookup:{
-            from: "userinfo",       // other table name
-            localField: "userId",   // name of users table field
-            foreignField: "userId", // name of userinfo table field
-            as: "user_info"         // alias for userinfo table
+      // Join with user_info tables
+      {
+        $lookup: {
+          from: "userinfo",       // other table name
+          localField: "userId",   // name of users table field
+          foreignField: "userId", // name of userinfo table field
+          as: "user_info"         // alias for userinfo table
         }
-    },
-    {   $unwind:"$user_info" },     // $unwind used for getting data in object or for one record only
+      },
+      { $unwind: "$user_info" },     // $unwind used for getting data in object or for one record only
 
-    // Join with user_role table
-    {
-        $lookup:{
-            from: "userrole", 
-            localField: "userId", 
-            foreignField: "userId",
-            as: "user_role"
+      // Join with user_role table
+      {
+        $lookup: {
+          from: "userrole",
+          localField: "userId",
+          foreignField: "userId",
+          as: "user_role"
         }
-    },
-    {   $unwind:"$user_role" },
+      },
+      { $unwind: "$user_role" },
 
-    {
-        $lookup:{
-            from: "useradd", 
-            localField: "userInfo.useradd_id", 
-            foreignField: "_id",
-            as: "useradd"
+      {
+        $lookup: {
+          from: "useradd",
+          localField: "userInfo.useradd_id",
+          foreignField: "_id",
+          as: "useradd"
         }
-    },
+      },
 
-    // define some conditions here 
-    {
-        $match:{
-            $and:[{"user_info.userName" : "admin"}]  //condition on join table so total record contorl
+      // define some conditions here 
+      {
+        $match: {
+          $and: [{ "user_info.userName": "admin" }]  //condition on join table so total record contorl
         }
-    },
+      },
 
-    // define which fields are you want to fetch
-    {   
-        $project:{
-            _id : 1,
-            email : 1,
-            userName : 1,
-            userPhone : "$user_info.phone",
-            role : "$user_role.role",
-        } 
-    }
-]);
+      // define which fields are you want to fetch
+      {
+        $project: {
+          _id: 1,
+          email: 1,
+          userName: 1,
+          userPhone: "$user_info.phone",
+          role: "$user_role.role",
+        }
+      }
+    ]);
 
 
 //NOTE FOR PROJECTION: final result mle e pr thi tmare kai field joiye chhe ej field set krvani ena mate Projection use thay
@@ -80,26 +82,30 @@ db.users.aggregate([
 
 
 db.userInfo.aggregate([
-    { $lookup:
+  {
+    $lookup:
+    {
+      from: "address",
+      let: { the_city: "$city", the_name: "$name" },
+      pipeline: [
         {
-          from: "address",
-          let: { the_city: "$city", the_name: "$name"},
-          pipeline: [
-               { $match:
-                   { $expr:
-                       { $and:
-                           [
-                              { $gt: [ "$city", "$$the_city"] },
-                              { $eq: ["$$the_name", "$contact_name" ] }
-                           ]
-                       }
-                   }
-               }
-           ],
-           as: "address"
-           }
+          $match:
+          {
+            $expr:
+            {
+              $and:
+                [
+                  { $gt: ["$city", "$$the_city"] },
+                  { $eq: ["$$the_name", "$contact_name"] }
+                ]
+            }
+          }
+        }
+      ],
+      as: "address"
     }
-   ]).pretty();
+  }
+]).pretty();
 
 
 
@@ -111,56 +117,56 @@ db.userInfo.aggregate([
  * whereas main find use for total records controle
  */
 eventsModel.find().populate({
-    path: 'siteuser_id', //field name
-    model: 'site_user',  //model name that you have defined in ref
-    match: { wallet_balance: { $gte: 12 }}, //condition on join table
-    //select: 'name -_id', //fields select
-    //options: { limit: 5 }. //limit
-    populate: {
-      path: 'role_id', //field name
-      model: 'Role', //model name that you have defined in ref
-      match: { role:'admin'},
-    }
-    
-  }).then(
-    (response) => {
-      callback(null, response);
-    },
-    (error) => {
-      callback(error, null);
-    }
-  );
-
-NOTE: In populate if require join table condition for controling the whole/total num of records then you need to do by loop iterate
- like below code snippet: Here we wants role_id is not null must be role_id is obj of join table
-
- siteUserModel.find(whereClause).populate({
+  path: 'siteuser_id', //field name
+  model: 'site_user',  //model name that you have defined in ref
+  match: { wallet_balance: { $gte: 12 } }, //condition on join table
+  //select: 'name -_id', //fields select
+  //options: { limit: 5 }. //limit
+  populate: {
     path: 'role_id', //field name
-    model: 'Role',  //model name that you have defined in ref
-    match: { role:'admin'}, //condition on join table
-    select: 'role _id', //fields select
-    //options: { limit: 5 }. //limit
-    
-  }).skip(offset).limit(limit).then(
-    (data) => {
-      if(data){
-        console.log("MY DATA:",data[0].role_id);
-        for(i=0;i<data.length;i++){
-           if(data[i].role_id===null){
-            console.log("IN FOR:",i);
-            delete data[i];
-            
-           }
+    model: 'Role', //model name that you have defined in ref
+    match: { role: 'admin' },
+  }
+
+}).then(
+  (response) => {
+    callback(null, response);
+  },
+  (error) => {
+    callback(error, null);
+  }
+);
+
+NOTE: In populate if require join table condition for controling the whole / total num of records then you need to do by loop iterate
+like below code snippet: Here we wants role_id is not null must be role_id is obj of join table
+
+siteUserModel.find(whereClause).populate({
+  path: 'role_id', //field name
+  model: 'Role',  //model name that you have defined in ref
+  match: { role: 'admin' }, //condition on join table
+  select: 'role _id', //fields select
+  //options: { limit: 5 }. //limit
+
+}).skip(offset).limit(limit).then(
+  (data) => {
+    if (data) {
+      console.log("MY DATA:", data[0].role_id);
+      for (i = 0; i < data.length; i++) {
+        if (data[i].role_id === null) {
+          console.log("IN FOR:", i);
+          delete data[i];
+
         }
       }
-      data = data.filter(function(e){return e}); //remove null,undefined etc
-      var response = { data: data, totalrecordsperpage: req.query.size, currentpage: req.query.page, totalpage: number_of_page, totalrecord: number_of_result };
-      callback(null, response);
-    },
-    (error) => {
-      callback(error, null);
     }
-  );
+    data = data.filter(function (e) { return e }); //remove null,undefined etc
+    var response = { data: data, totalrecordsperpage: req.query.size, currentpage: req.query.page, totalpage: number_of_page, totalrecord: number_of_result };
+    callback(null, response);
+  },
+  (error) => {
+    callback(error, null);
+  }
+);
 };
 
 
@@ -171,9 +177,9 @@ NOTE: In populate if require join table condition for controling the whole/total
  * 
  */
 
-  FIND()
+FIND()
 ---------
-Write below queries in find()
+  Write below queries in find()
 REF: https://www.w3resource.com/mongodb/mongodb-all-operators.php
 
 
@@ -184,39 +190,39 @@ REF: https://www.w3resource.com/mongodb/mongodb-all-operators.php
 5) $and
 6) $not for not like query
 7) $exists  for object have particular key or not if present then that records returns
-8) $mod for even/odd number or modular operation
+8) $mod for even / odd number or modular operation
 9) $regex for like query
 10)$where for javascript expression or function true kre e records return kre
 11) MongoDB fetch documents containing 'null'
->db.testtable.find( { "interest" : null } ).pretty();
+  > db.testtable.find({ "interest": null }).pretty();
 or use $type
 
 12) (or)AND(or)
-find( {
-    $and: [
-        { $or: [ { qty: { $lt : 10 } }, { qty : { $gt: 50 } } ] },  //or   AND
-        { $or: [ { sale: true }, { price : { $lt : 5 } } ] }        //or
-    ]
-} )
+find({
+  $and: [
+    { $or: [{ qty: { $lt: 10 } }, { qty: { $gt: 50 } }] },  //or   AND
+    { $or: [{ sale: true }, { price: { $lt: 5 } }] }        //or
+  ]
+})
 
-13)(And)or(And)
+13) (And)or(And)
 
 
 14) ON ARRAY OBJECT but write in find()
 
-case:1 Array store & search
-['ckt','bkt','pkt']              => fieldname  => hobbies
+case: 1 Array store & search
+['ckt', 'bkt', 'pkt']              => fieldname => hobbies
 
-$all use krvu   & $slice use krvu array value limit mate
+$all use krvu & $slice use krvu array value limit mate
 
 case 2: object key array
 
 
 {
-    key:['ckt','bkt','pkt']        =>fieldname.keyname =>hobbies.key
+  key: ['ckt', 'bkt', 'pkt']        => fieldname.keyname => hobbies.key
 }
 
-$all use krvu   &  $slice use krvu array value limit mate
+$all use krvu & $slice use krvu array value limit mate
 
 Case 3: array object
 [{}]
@@ -231,7 +237,7 @@ $elemMatch use krvu
 /* Other orm queries **/
 
 
-Model.insertMany([{},{}])
+Model.insertMany([{}, {}])
 Model.deleteMany()
 Model.deleteOne()
 Model.find()
@@ -255,3 +261,89 @@ Model.updateOne()
 https://medium.com/@galford151/mongoose-geospatial-queries-with-near-59800b79c0f6
 
 https://docs.mongodb.com/manual/tutorial/geospatial-tutorial/
+
+
+
+My SQL
+// find the distane in user lat long with all near location
+const usersNearestLocation = (lat, lng, distance) => {
+  return sequelize.query(`
+    SELECT * FROM (
+       SELECT *, (
+          ( 
+            (
+               acos( 
+                 sin(
+                   (:user_lat * pi() / 180)
+                   )  sin(( latitude  pi() / 180)) + cos(
+                     ( :user_lat  pi() /180 ))  cos(
+                       ( latitude  pi() / 180))  cos(
+                         ((:user_lng - longtitude) * pi()/180))
+                         )
+                          )  180/pi() )  60  1.1515  1.609344 ) 
+    as distance FROM locations ) 
+    myTable WHERE distance <= :km LIMIT 0 , 20;
+    `,
+    { replacements: { user_lat: lat, user_lng: lng, km: distance }, type: sequelize.QueryTypes.SELECT });
+}
+
+* MongoDB *
+  // find the distane in user lat long with all near location
+  services.usersNearestLocation = async (long, lat, distance) => {
+    const query = { map_Location: { $near: { $maxDistance: distance, $geometry: { type: "Point", coordinates: [long, lat] } } } }
+    const nearestLocation = await locationModel.find(query)
+    return nearestLocation
+
+  }
+
+
+
+
+
+MongoDB Date wise sum of amount  example:
+==============================
+
+output :  [{'date':2012-02-09,'amount':5},{'date':2012-02-10,'amount':15}]
+
+REf : https://stackoverflow.com/questions/51173700/mongo-aggregate-sum-and-group-items-by-date
+
+
+
+Query as below:
+
+db.collection.aggregate([
+  { "$unwind": "$played_event" },
+  { "$group": {
+    "_id": {
+      "$dateToString": {
+        "format": "%Y-%m-%d",
+        "date": "$played_event.date"
+      }
+    },
+    "sum": { "$sum": 1 }
+  }},
+  { "$project": {
+    "date": "$_id",
+    "sum": 1,
+    "_id": 0
+  }}
+])
+
+
+
+Output:
+
+[
+  {
+    "date": "2017-01-30",
+    "sum": 1
+  },
+  {
+    "date": "2017-01-26",
+    "sum": 1
+  },
+  {
+    "date": "2017-01-25",
+    "sum": 2
+  }
+]
