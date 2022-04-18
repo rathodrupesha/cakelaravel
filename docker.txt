@@ -1,3 +1,13 @@
+
+
+By harsh kenria: https://harshkaneria.notion.site/Docker-c2c2d98f3d9e4311a7fb95264b3fb32c
+
+My own DOC: 
+    https://www.notion.so/login
+    rathodrupesh.ec15@gmail.com
+    Brain@2019
+    
+
 Ref: https://www.youtube.com/watch?v=PsWeSg38XFY
 
 https://www.youtube.com/watch?v=gAkwW2tuIqE
@@ -117,4 +127,42 @@ Run the sh file in command line
 docker exec -it 8969a81bf473 bash
 
 env
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================================================================
+
+
 
