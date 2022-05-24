@@ -1,0 +1,105 @@
+
+// https://onecompiler.com/nodejs/3y4z93e89
+
+
+var x=5;
+x= ++x + ++x + --x;
+console.log(x);
+
+const num=125468;
+const str = num.toString();
+const result = [];
+const final=str.split("");
+  
+for(let x=0; x<final.length; x++)
+  {
+    if(final[x]%2==0)
+     {
+      result.push('-', str[x]);
+     }
+    else
+     {
+      result.push(str[x]);
+     }
+  }
+console.log(result.join(''));
+
+
+var arr1=[3, 'a', 'a', 'a', 2, 3, 'a', 3, 'a', 2, 4, 9, 3];
+
+var obj={};
+
+arr1.forEach((value,index)=>{
+     if(obj.hasOwnProperty(value)){
+        obj[value]=obj[value]+1;
+     }else{
+       obj[value]=1;
+     }
+});
+console.log(obj);
+
+var uniqueArry=[];
+arr1.forEach((value,index)=>{
+     if(!uniqueArry.includes(value)){
+        uniqueArry.push(value);
+     }
+});
+  
+console.log(uniqueArry.sort());
+
+const items = [
+  { name: 'Edward', value: 21 },
+  { name: 'Sharpe', value: 37 },
+  { name: 'And', value: 45 },
+  { name: 'The', value: -12 },
+  { name: 'Magnetic', value: 13 },
+  { name: 'Zeros', value: 37 }
+];
+
+var out=items.sort(function (a, b) {
+  const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+  const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // names must be equal
+  return 0;
+});
+console.log(out);
+
+ var text='The Quick Brown Fox';
+ var textArry=text.split(' ');
+ console.log(textArry);
+ finalArry=[];
+textArry.forEach((value,index)=>{
+     var chatArry=value.split(' ');
+     console.log(chatArry);
+});
+
+
+for(m=0;m<10;m++){
+  setTimeout(function() {
+   console.log(m);
+  }, 1000);
+}
+console.log("OUT : ",m);
+
+
+function removeProperty(obj, prop) {
+   if(obj.hasOwnProperty(prop)){
+     console.log(obj[prop]);
+        delete obj[prop];
+        return true;
+      }
+  return false;
+}
+var myObj={fruit1:"mango",fruit2:"orange"};
+var output=removeProperty(myObj,"fruit1");
+
+console.log(output);
+console.log(myObj);
+
