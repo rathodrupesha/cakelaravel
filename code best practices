@@ -103,3 +103,77 @@ var output=removeProperty(myObj,"fruit1");
 console.log(output);
 console.log(myObj);
 
+
+
+
+console.log(typeof null) // Expected o/p ?
+console.log(typeof undefined) // Expected o/p ?
+console.log('1'+'1'-'1'+'1')  // Expected o/p ?
+console.log(8>7>6<1)  // Expected o/p ?
+
+//Get the key which have Pass value	"
+const languages = {
+    Java: 'Pass',
+    Python: 'Fail',
+    Cpp: 'Pass',
+    Js: 'Fail',
+    Ts: 'Pass',
+};	
+
+let keys = Object.keys(languages).filter(el => languages[el] == 'Pass');
+console.log(keys);
+
+
+/*
+1	"Counter (Like Stopwatch)
+> Add Start button (After clicking the start counter increase every second)
+> Add Stop button (Stop increase count)
+> Add reset functionality (reset count to 0)"
+*/
+
+/*
+2	"const object : { a : { b : { c : { a : 2 } , d : { b : 3 } }
+Log all Possible outputs for e;g : { a.b.c.a : 2 }"
+*/
+
+
+/*
+Write a program to shift all the zeros in the string at the end of the string.
+E.g., Input : '0987se%0ab5600@334123', Output: '987se%ab56@3341230000'
+3	Use of Promise, Callback, Promise.all in code using any example.
+
+
+Get the maximum number from array
+const arr = [
+    [1, 4, 59, 22, 11, 10],
+    [1, 8, 99, 21, 19],
+    [12, 34, 54, 33, 87, 92],
+    [1, 6, 5, 3, 9],
+];
+
+Get the first repeating vaue
+
+const arrayFilter = [2, 1, 2, 5, 5, 6, 7];
+
+let result = array.find(function(item, index, array) {
+    console.log("Before checkPoint");
+ if(array.lastIndexOf(item) != index)
+{
+    console.log("Conditional statement :", item);
+    return item;
+}
+    console.log("After checkPoint");
+});
+
+console.log("result", result);
+*/
+
+const x = () => {
+    for (var i = 0; i < 5; i++) {
+        setTimeout(() => {
+            console.log(i);
+        }, 1000);
+    }
+};
+
+x();  //output?  console.log
