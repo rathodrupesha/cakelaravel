@@ -250,3 +250,31 @@ console.log(out);
 
 
 
+
+// input like and output like code practise
+
+let people = [
+  { name: "John", age: 21 },
+  { name: "Oliver", age: 55 },
+  { name: "Michael", age: 55 },
+  { name: "Dwight", age: 19 },
+  { name: "Oscar", age: 21 },
+  { name: "Kevin", age: 55 },
+];
+
+var obj={};
+    var newArr=[];
+
+people.forEach((value,index)=>{
+  if(obj.hasOwnProperty(value.age)){
+    newArr.push(value);
+    obj[value.age]=newArr.filter((item)=>  item.age===value.age);
+    
+  }else{
+      newArr.push(value);
+      obj[value.age]=value;
+
+  }
+   
+})
+console.log(obj)
