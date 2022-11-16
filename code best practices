@@ -1,62 +1,42 @@
 
 // https://onecompiler.com/nodejs/3y4z93e89
 
+let y = 5;
+y = ++y + ++y + --y;
+console.log(y);
 
-var x=5;
-x= ++x + ++x + --x;
-console.log(x);
+var arr1 = [3, "a", "a", "a", 2, 3, "a", 3, "a", 2, 4, 9, 3];
 
-const num=125468;
-const str = num.toString();
-const result = [];
-const final=str.split("");
-  
-for(let x=0; x<final.length; x++)
-  {
-    if(final[x]%2==0)
-     {
-      result.push('-', str[x]);
-     }
-    else
-     {
-      result.push(str[x]);
-     }
+var obj = {};
+
+arr1.forEach((value, index) => {
+  if (obj.hasOwnProperty(value)) {
+    obj[value] = obj[value] + 1;
+  } else {
+    obj[value] = 1;
   }
-console.log(result.join(''));
-
-
-var arr1=[3, 'a', 'a', 'a', 2, 3, 'a', 3, 'a', 2, 4, 9, 3];
-
-var obj={};
-
-arr1.forEach((value,index)=>{
-     if(obj.hasOwnProperty(value)){
-        obj[value]=obj[value]+1;
-     }else{
-       obj[value]=1;
-     }
 });
 console.log(obj);
 
-var uniqueArry=[];
-arr1.forEach((value,index)=>{
-     if(!uniqueArry.includes(value)){
-        uniqueArry.push(value);
-     }
+var uniqueArry = [];
+arr1.forEach((value, index) => {
+  if (!uniqueArry.includes(value)) {
+    uniqueArry.push(value);
+  }
 });
-  
+
 console.log(uniqueArry.sort());
 
 const items = [
-  { name: 'Edward', value: 21 },
-  { name: 'Sharpe', value: 37 },
-  { name: 'And', value: 45 },
-  { name: 'The', value: -12 },
-  { name: 'Magnetic', value: 13 },
-  { name: 'Zeros', value: 37 }
+  { name: "Edward", value: 21 },
+  { name: "Sharpe", value: 37 },
+  { name: "And", value: 45 },
+  { name: "The", value: -12 },
+  { name: "Magnetic", value: 13 },
+  { name: "Zeros", value: 37 },
 ];
 
-var out=items.sort(function (a, b) {
+var out = items.sort(function (a, b) {
   const nameA = a.name.toUpperCase(); // ignore upper and lowercase
   const nameB = b.name.toUpperCase(); // ignore upper and lowercase
   if (nameA < nameB) {
@@ -71,58 +51,52 @@ var out=items.sort(function (a, b) {
 });
 console.log(out);
 
- var text='The Quick Brown Fox';
- var textArry=text.split(' ');
- console.log(textArry);
- finalArry=[];
-textArry.forEach((value,index)=>{
-     var chatArry=value.split(' ');
-     console.log(chatArry);
+var text = "The Quick Brown Fox";
+var textArry = text.split(" ");
+console.log(textArry);
+finalArry = [];
+textArry.forEach((value, index) => {
+  var chatArry = value.split(" ");
+  console.log(chatArry);
 });
 
-
-for(m=0;m<10;m++){
-  setTimeout(function() {
-   console.log(m);
+for (m = 0; m < 10; m++) {
+  setTimeout(function () {
+    console.log(m);
   }, 1000);
 }
-console.log("OUT : ",m);
-
+console.log("OUT : ", m);
 
 function removeProperty(obj, prop) {
-   if(obj.hasOwnProperty(prop)){
-     console.log(obj[prop]);
-        delete obj[prop];
-        return true;
-      }
+  if (obj.hasOwnProperty(prop)) {
+    console.log(obj[prop]);
+    delete obj[prop];
+    return true;
+  }
   return false;
 }
-var myObj={fruit1:"mango",fruit2:"orange"};
-var output=removeProperty(myObj,"fruit1");
+var myObj = { fruit1: "mango", fruit2: "orange" };
+var output = removeProperty(myObj, "fruit1");
 
 console.log(output);
 console.log(myObj);
 
-
-
-
-console.log(typeof null) // Expected o/p ?
-console.log(typeof undefined) // Expected o/p ?
-console.log('1'+'1'-'1'+'1')  // Expected o/p ?
-console.log(8>7>6<1)  // Expected o/p ?
+console.log(typeof null); // Expected o/p ?
+console.log(typeof undefined); // Expected o/p ?
+console.log("1" + "1" - "1" + "1"); // Expected o/p ?
+console.log(8 > 7 > 6 < 1); // Expected o/p ?
 
 //Get the key which have Pass value	"
 const languages = {
-    Java: 'Pass',
-    Python: 'Fail',
-    Cpp: 'Pass',
-    Js: 'Fail',
-    Ts: 'Pass',
-};	
+  Java: "Pass",
+  Python: "Fail",
+  Cpp: "Pass",
+  Js: "Fail",
+  Ts: "Pass",
+};
 
-let keys = Object.keys(languages).filter(el => languages[el] == 'Pass');
+let keys = Object.keys(languages).filter((el) => languages[el] == "Pass");
 console.log(keys);
-
 
 /*
 1	"Counter (Like Stopwatch)
@@ -135,7 +109,6 @@ console.log(keys);
 2	"const object : { a : { b : { c : { a : 2 } , d : { b : 3 } }
 Log all Possible outputs for e;g : { a.b.c.a : 2 }"
 */
-
 
 /*
 Write a program to shift all the zeros in the string at the end of the string.
@@ -169,87 +142,50 @@ console.log("result", result);
 */
 
 const x = () => {
-    for (var i = 0; i < 5; i++) {
-        setTimeout(() => {
-            console.log(i);
-        }, 1000);
-    }
+  for (var i = 0; i < 5; i++) {
+    setTimeout(() => {
+      console.log(i);
+    }, 1000);
+  }
 };
 
-x();  //output?  console.log
+x(); //output?  console.log
 
-
-
-
-
-
-const num=125468;
+const num = 125468;
 const str = num.toString();
 const result = [];
-const final=str.split("");
-  
-for(let x=0; x<final.length; x++)
-  {
-    if(final[x]%2==0)
-     {
-      result.push('-', str[x]);
-     }
-    else
-     {
-      result.push(str[x]);
-     }
+const final = str.split("");
+
+for (let x = 0; x < final.length; x++) {
+  if (final[x] % 2 == 0) {
+    result.push("-", str[x]);
+  } else {
+    result.push(str[x]);
   }
-console.log(result.join(''));
+}
+console.log(result.join(""));
 
+var arr1 = [3, "a", "a", "a", 2, 3, "a", 3, "a", 2, 4, 9, 3];
 
-var arr1=[3, 'a', 'a', 'a', 2, 3, 'a', 3, 'a', 2, 4, 9, 3];
+var obj = {};
 
-var obj={};
-
-arr1.forEach((value,index)=>{
-     if(obj.hasOwnProperty(value)){
-        obj[value]=obj[value]+1;
-     }else{
-       obj[value]=1;
-     }
+arr1.forEach((value, index) => {
+  if (obj.hasOwnProperty(value)) {
+    obj[value] = obj[value] + 1;
+  } else {
+    obj[value] = 1;
+  }
 });
 console.log(obj);
 
-var uniqueArry=[];
-arr1.forEach((value,index)=>{
-     if(!uniqueArry.includes(value)){
-        uniqueArry.push(value);
-     }
+var uniqueArry = [];
+arr1.forEach((value, index) => {
+  if (!uniqueArry.includes(value)) {
+    uniqueArry.push(value);
+  }
 });
-  
+
 console.log(uniqueArry.sort());
-
-const items = [
-  { name: 'Edward', value: 21 },
-  { name: 'Sharpe', value: 37 },
-  { name: 'And', value: 45 },
-  { name: 'The', value: -12 },
-  { name: 'Magnetic', value: 13 },
-  { name: 'Zeros', value: 37 }
-];
-
-var out=items.sort(function (a, b) {
-  const nameA = a.name.toUpperCase(); // ignore upper and lowercase
-  const nameB = b.name.toUpperCase(); // ignore upper and lowercase
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-
-  // names must be equal
-  return 0;
-});
-console.log(out);
-
-
-
 
 // input like and output like code practise
 
@@ -262,19 +198,50 @@ let people = [
   { name: "Kevin", age: 55 },
 ];
 
-var obj={};
-    var newArr=[];
+var obj = {};
+var newArr = [];
 
-people.forEach((value,index)=>{
-  if(obj.hasOwnProperty(value.age)){
+people.forEach((value, index) => {
+  if (obj.hasOwnProperty(value.age)) {
     newArr.push(value);
-    obj[value.age]=newArr.filter((item)=>  item.age===value.age);
-    
-  }else{
-      newArr.push(value);
-      obj[value.age]=value;
-
+    obj[value.age] = newArr.filter((item) => item.age === value.age);
+  } else {
+    newArr.push(value);
+    obj[value.age] = value;
   }
-   
-})
-console.log(obj)
+});
+console.log(obj);
+
+/*input and output be like  */
+
+const arrayOne = ["a", "b", "c"];
+const arrayTwo = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+var newArr1 = [];
+
+arrayOne.forEach((valueOne, indexOne) => {
+  blankObj = {};
+
+  console.log("LOOP COUNT", indexOne);
+
+  var [singleArry] = arrayTwo.slice(indexOne, ++indexOne);
+
+  let myobj = {};
+
+  for (let i = 0; i < singleArry.length; i++) {
+    myobj[arrayOne[i]] = singleArry[i];
+
+    newArr1.push(myobj);
+
+    blankObj[valueOne] = singleArry[i];
+  }
+});
+
+const ids = newArr1.map((o) => o.a);
+const filtered = newArr1.filter(({ a }, index) => !ids.includes(a, index + 1));
+
+console.log("newArr1 obj", filtered);
