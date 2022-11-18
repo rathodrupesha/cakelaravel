@@ -1,12 +1,13 @@
 
-// https://onecompiler.com/nodejs/3y4z93e89
+Link : https://onecompiler.com/nodejs/3ypas2834
 
+/* -------------------Example 1-------------------------------------------- */
 let y = 5;
 y = ++y + ++y + --y;
 console.log(y);
 
+/* -------------------Example 2-------------------------------------------- */
 var arr1 = [3, "a", "a", "a", 2, 3, "a", 3, "a", 2, 4, 9, 3];
-
 var obj = {};
 
 arr1.forEach((value, index) => {
@@ -18,6 +19,8 @@ arr1.forEach((value, index) => {
 });
 console.log(obj);
 
+
+/* -------------------Example 3-------------------------------------------- */
 var uniqueArry = [];
 arr1.forEach((value, index) => {
   if (!uniqueArry.includes(value)) {
@@ -26,6 +29,8 @@ arr1.forEach((value, index) => {
 });
 
 console.log(uniqueArry.sort());
+
+/* -------------------Example 4-------------------------------------------- */
 
 const items = [
   { name: "Edward", value: 21 },
@@ -51,6 +56,8 @@ var out = items.sort(function (a, b) {
 });
 console.log(out);
 
+/* -------------------Example 5-------------------------------------------- */
+
 var text = "The Quick Brown Fox";
 var textArry = text.split(" ");
 console.log(textArry);
@@ -60,13 +67,17 @@ textArry.forEach((value, index) => {
   console.log(chatArry);
 });
 
+/* -------------------Example 6-------------------------------------------- */
 for (m = 0; m < 10; m++) {
+  //console.log(m) // o to 9
   setTimeout(function () {
-    console.log(m);
+    //console.log(m);   //10
   }, 1000);
 }
-console.log("OUT : ", m);
+//console.log("OUT : ", m);  //10
 
+
+/* -------------------Example 7-------------------------------------------- */
 function removeProperty(obj, prop) {
   if (obj.hasOwnProperty(prop)) {
     console.log(obj[prop]);
@@ -81,10 +92,15 @@ var output = removeProperty(myObj, "fruit1");
 console.log(output);
 console.log(myObj);
 
+
+/* -------------------Example 8------------------------------------------- */
+
 console.log(typeof null); // Expected o/p ?
 console.log(typeof undefined); // Expected o/p ?
-console.log("1" + "1" - "1" + "1"); // Expected o/p ?
+console.log("1" + "1" - "1" + "1"); // Expected o/p ?  in js + for string is concate but minus can perform
 console.log(8 > 7 > 6 < 1); // Expected o/p ?
+
+/* -------------------Example 9------------------------------------------ */
 
 //Get the key which have Pass value	"
 const languages = {
@@ -97,6 +113,8 @@ const languages = {
 
 let keys = Object.keys(languages).filter((el) => languages[el] == "Pass");
 console.log(keys);
+
+/* -------------------Example 10------------------------------------------ */
 
 /*
 1	"Counter (Like Stopwatch)
@@ -115,6 +133,8 @@ Write a program to shift all the zeros in the string at the end of the string.
 E.g., Input : '0987se%0ab5600@334123', Output: '987se%ab56@3341230000'
 3	Use of Promise, Callback, Promise.all in code using any example.
 
+ 
+ 
 
 Get the maximum number from array
 const arr = [
@@ -141,15 +161,21 @@ let result = array.find(function(item, index, array) {
 console.log("result", result);
 */
 
+
+/* -------------------Example 11------------------------------------------ */
+
 const x = () => {
   for (var i = 0; i < 5; i++) {
     setTimeout(() => {
-      console.log(i);
+      // console.log(i);
     }, 1000);
   }
 };
 
-x(); //output?  console.log
+x(); //output?  console.log  5
+
+
+/* -------------------Example 12------------------------------------------ */
 
 const num = 125468;
 const str = num.toString();
@@ -165,27 +191,8 @@ for (let x = 0; x < final.length; x++) {
 }
 console.log(result.join(""));
 
-var arr1 = [3, "a", "a", "a", 2, 3, "a", 3, "a", 2, 4, 9, 3];
 
-var obj = {};
-
-arr1.forEach((value, index) => {
-  if (obj.hasOwnProperty(value)) {
-    obj[value] = obj[value] + 1;
-  } else {
-    obj[value] = 1;
-  }
-});
-console.log(obj);
-
-var uniqueArry = [];
-arr1.forEach((value, index) => {
-  if (!uniqueArry.includes(value)) {
-    uniqueArry.push(value);
-  }
-});
-
-console.log(uniqueArry.sort());
+/* -------------------Example 13------------------------------------------ */
 
 // input like and output like code practise
 
@@ -211,6 +218,9 @@ people.forEach((value, index) => {
   }
 });
 console.log(obj);
+
+
+/* -------------------Example 14------------------------------------------ */
 
 /*input and output be like  */
 
